@@ -1485,14 +1485,41 @@ main {
   gap: 10px;
   align-content: start;
   min-height: 190px;
+  appearance: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
   transition:
     transform 220ms ease,
-    border-color 220ms ease;
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease;
 }
 
-.contact-card:hover {
+.contact-card--interactive:hover,
+.contact-card--interactive:focus-visible {
   transform: translateY(-4px);
-  border-color: rgba(127, 231, 213, 0.22);
+  border-color: rgba(168, 85, 247, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(168, 85, 247, 0.18) inset,
+    0 0 24px rgba(168, 85, 247, 0.12);
+}
+
+.contact-card__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-top: 4px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 187, 0, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 187, 0, 0.08);
+  color: var(--signal);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
 @media (max-width: 1180px) {

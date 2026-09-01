@@ -1,6 +1,8 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowUpRight,
+  Check,
+  Copy,
   Home,
   Images,
   Mail,
@@ -25,6 +27,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const heroVideos = ['/hero-video-01.mp4', '/hero-video-02.mp4', '/hero-video-03.mp4'];
 const postHeroParticleColors = ['#ffffff', '#ffffff'];
+const contactEmail = '240036296@qq.com';
 
 const navItems = [
   { label: '首页', href: '#home', icon: Home },
@@ -413,6 +416,10 @@ function StrengthCard({ icon: Icon, title, text }) {
 }
 
 function BorderGlowButton({ className = '', children, ...props }) {
+  return <GlowSurface className={className} {...props}>{children}</GlowSurface>;
+}
+
+function GlowSurface({ as: Tag = 'button', className = '', children, ...props }) {
   const glowRef = useRef(null);
 
   const setGlow = (x, y, opacity = '1') => {
@@ -446,8 +453,10 @@ function BorderGlowButton({ className = '', children, ...props }) {
     el.style.setProperty('--glow-opacity', '0');
   };
 
+  const sharedProps = Tag === 'button' && !props.type ? { type: 'button' } : {};
+
   return (
-    <button
+    <Tag
       ref={glowRef}
       className={`border-glow-button ${className}`.trim()}
       onPointerEnter={updateGlow}
@@ -455,11 +464,24 @@ function BorderGlowButton({ className = '', children, ...props }) {
       onPointerLeave={clearGlow}
       onFocus={centerGlow}
       onBlur={clearGlow}
+      {...sharedProps}
       {...props}
     >
       {children}
       <span className="border-glow-button__glow" aria-hidden="true" />
-    </button>
+    </Tag>
+  );
+}
+
+function ContactGlowCard({ as = 'a', className = '', children, ...props }) {
+  return (
+    <GlowSurface
+      as={as}
+      className={`contact-card contact-card--interactive ${className}`.trim()}
+      {...props}
+    >
+      {children}
+    </GlowSurface>
   );
 }
 
@@ -524,6 +546,8 @@ export default function App() {
   const ecommerceVideoRef = useRef(null);
   const brandVideoRef = useRef(null);
   const featureVideoRef = useRef(null);
+  const copyEmailTimerRef = useRef(0);
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
   const introItems = useMemo(
     () => [
@@ -570,6 +594,10 @@ export default function App() {
     }
   };
 
+  useEffect(() => () => {
+    window.clearTimeout(copyEmailTimerRef.current);
+  }, []);
+
   useEffect(() => {
     const updateHash = () => {
       setActiveSection(window.location.hash || '#home');
@@ -600,6 +628,32 @@ export default function App() {
       tryPlay(featureVideoRef.current);
     }
   }, [activePortfolioItem.id, activeEcommerceItem.cover, activeBrandItem.cover]);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(contactEmail);
+      setCopiedEmail(true);
+      window.clearTimeout(copyEmailTimerRef.current);
+      copyEmailTimerRef.current = window.setTimeout(() => {
+        setCopiedEmail(false);
+      }, 1800);
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = contactEmail;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      setCopiedEmail(true);
+      window.clearTimeout(copyEmailTimerRef.current);
+      copyEmailTimerRef.current = window.setTimeout(() => {
+        setCopiedEmail(false);
+      }, 1800);
+    }
+  };
 
   useLayoutEffect(() => {
     const root = pageShellRef.current;
@@ -1272,7 +1326,6 @@ export default function App() {
                       <p className="eyebrow">AI漫剧补充视频</p>
                       <h3>古风权谋</h3>
                     </div>
-                    <p>第二条和第三条视频都单独放在这里，不会和首页播放混在一起。</p>
                   </div>
                   <div className="portfolio-video-grid">
                     {activePortfolioItem.videos?.slice(1).map(([label, src]) => (
@@ -1361,26 +1414,36 @@ export default function App() {
             </div>
 
             <div className="contact-grid">
-              <a className="contact-card" href="mailto:240036296@qq.com">
+              <ContactGlowCard
+                as="button"
+                type="button"
+                className="contact-card--copy"
+                onClick={copyEmail}
+                aria-label={copiedEmail ? '邮箱已复制' : '点击复制邮箱'}
+              >
                 <Mail size={18} />
                 <span>邮箱</span>
-                <strong>240036296@qq.com</strong>
-              </a>
-              <a className="contact-card" href="#home">
+                <strong>{contactEmail}</strong>
+                <span className="contact-card__action">
+                  {copiedEmail ? <Check size={14} /> : <Copy size={14} />}
+                  {copiedEmail ? '已复制' : '一键复制邮箱'}
+                </span>
+              </ContactGlowCard>
+              <ContactGlowCard as="a" href="#home">
                 <Layers3 size={18} />
                 <span>首页回到顶部</span>
-                <strong>继续看一遍整体气质</strong>
-              </a>
-              <a className="contact-card" href="#projects">
+                <strong>返回首页重新浏览</strong>
+              </ContactGlowCard>
+              <ContactGlowCard as="a" href="#projects">
                 <Orbit size={18} />
                 <span>项目区</span>
-                <strong>替换成真实作品后这里会更有力</strong>
-              </a>
-              <a className="contact-card" href="#about">
+                <strong>查看最新作品内容</strong>
+              </ContactGlowCard>
+              <ContactGlowCard as="a" href="#about">
                 <MessageSquareMore size={18} />
                 <span>个人介绍</span>
-                <strong>先把履历和照片放对位置</strong>
-              </a>
+                <strong>查看个人经历与能力</strong>
+              </ContactGlowCard>
             </div>
           </div>
         </section>
