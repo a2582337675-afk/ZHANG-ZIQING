@@ -427,9 +427,9 @@ main {
   position: relative;
   z-index: 6;
   grid-column: 1 / -1;
-  max-width: 1180px;
-  margin: 0 0 clamp(36px, 5vh, 66px);
-  overflow: hidden;
+  max-width: min(1260px, 100%);
+  margin: 0 0 clamp(40px, 5vh, 72px);
+  overflow: visible;
 }
 
 .hero-index {
@@ -437,22 +437,30 @@ main {
   position: relative;
   width: 100%;
   color: var(--signal);
-  font-size: clamp(4.2rem, 8vw, 10.8rem);
+  font-size: clamp(3.2rem, 5.9vw, 8.4rem);
   font-weight: 950;
-  letter-spacing: -0.045em;
-  line-height: 1.02;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
   cursor: pointer;
 }
 
 .particle-text {
   position: relative;
+  width: 100%;
 }
 
 .particle-text__label {
-  display: block;
+  display: grid;
+  gap: 0.1em;
+  width: 100%;
   color: transparent;
   user-select: none;
   white-space: normal;
+}
+
+.particle-text__label span {
+  display: block;
+  white-space: nowrap;
 }
 
 .particle-text__canvas {

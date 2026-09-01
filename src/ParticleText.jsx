@@ -26,6 +26,7 @@ const easeOutCubic = (t) => 1 - (1 - t) ** 3;
 
 function ParticleText({
   text,
+  lines,
   className = '',
   color = '#ff6800',
   highlightColor = '#ffed00',
@@ -47,6 +48,7 @@ function ParticleText({
     base: hexToRgb(color),
     highlight: hexToRgb(highlightColor),
   });
+  const resolvedLines = Array.isArray(lines) && lines.length ? lines : null;
 
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -98,9 +100,6 @@ function ParticleText({
       const computed = getComputedStyle(label);
       const fontSize = Number.parseFloat(computed.fontSize) || 120;
       const lineHeight = Number.parseFloat(computed.lineHeight) || fontSize * 1.14;
-      const words = text.split(' ');
-      const lines = [];
-      let currentLine = '';
 
       offCtx.clearRect(0, 0, width, height);
       offCtx.fillStyle = '#fff';
@@ -108,26 +107,38 @@ function ParticleText({
       offCtx.textAlign = 'left';
       offCtx.font = computed.font;
 
-      words.forEach((word) => {
-        const testLine = currentLine ? `${currentLine} ${word}` : word;
-        if (offCtx.measureText(testLine).width > width && currentLine) {
-          lines.push(currentLine);
-          currentLine = word;
+      const renderLines = resolvedLines || [text];
+
+      renderLines.forEach((line, index) => {
+        if (!resolvedLines) {
+          const words = line.split(' ');
+          const wrappedLines = [];
+          let currentLine = '';
+
+          words.forEach((word) => {
+            const testLine = currentLine ? `${currentLine} ${word}` : word;
+            if (offCtx.measureText(testLine).width > width && currentLine) {
+              wrappedLines.push(currentLine);
+              currentLine = word;
+            } else {
+              currentLine = testLine;
+            }
+          });
+
+          if (currentLine) {
+            wrappedLines.push(currentLine);
+          }
+
+          wrappedLines.forEach((wrappedLine, wrappedIndex) => {
+            offCtx.fillText(wrappedLine, 0, (index + wrappedIndex) * lineHeight);
+          });
         } else {
-          currentLine = testLine;
+          offCtx.fillText(line, 0, index * lineHeight);
         }
       });
 
-      if (currentLine) {
-        lines.push(currentLine);
-      }
-
-      lines.forEach((line, index) => {
-        offCtx.fillText(line, 0, index * lineHeight);
-      });
-
       const { data } = offCtx.getImageData(0, 0, width, height);
-      const step = Math.max(3, Math.round(particleSize * 1.8));
+      const step = Math.max(2, Math.round(particleSize * 1.05));
       const points = [];
 
       for (let y = 0; y < height; y += step) {
@@ -135,14 +146,14 @@ function ParticleText({
           const index = (y * width + x) * 4 + 3;
           if (data[index] > 18) {
             points.push({
-              x: x + Math.random() * step * 0.45 - step * 0.225,
-              y: y + Math.random() * step * 0.45 - step * 0.225,
+              x: x + Math.random() * step * 0.6 - step * 0.3,
+              y: y + Math.random() * step * 0.6 - step * 0.3,
             });
           }
         }
       }
 
-      const maxParticles = 2600;
+      const maxParticles = Math.round(clamp((width * height) / 20, 5000, 12000));
       const sampled = points.length > maxParticles
         ? points.filter((_, index) => index % Math.ceil(points.length / maxParticles) === 0)
         : points;
@@ -222,13 +233,15 @@ function ParticleText({
           const dx = x - pointer.x;
           const dy = y - pointer.y;
           const distance = Math.hypot(dx, dy);
-          const radius = 185;
+          const radius = 124;
 
           if (distance < radius) {
             hoverForce = (1 - distance / radius) ** 2;
             const angle = distance === 0 ? particle.phase : Math.atan2(dy, dx);
-            drawX += Math.cos(angle) * hoverForce * 118;
-            drawY += Math.sin(angle) * hoverForce * 92;
+            const swirlAngle = particle.phase + now * 0.0014;
+            const scatter = hoverForce * 26;
+            drawX += Math.cos(angle) * hoverForce * 28 + Math.cos(swirlAngle) * scatter * 0.55;
+            drawY += Math.sin(angle) * hoverForce * 20 + Math.sin(swirlAngle) * scatter * 0.42;
           }
         }
 
@@ -236,11 +249,11 @@ function ParticleText({
         const clickHighlight = readyRef.current && progress < 1
           ? clamp(1 - distanceFromClick / 260, 0, 1) * (1 - progress) * 0.45
           : 0;
-        const colorMix = clamp(particle.gradient + clickHighlight + hoverForce * 0.55, 0, 1);
+        const colorMix = clamp(particle.gradient + clickHighlight + hoverForce * 0.35, 0, 1);
         const rgb = mixRgb(base, highlight, colorMix);
         const alpha = readyRef.current && progress < 1
           ? lerp(0.35, 0.96, eased)
-          : lerp(0.92, 1, hoverForce);
+          : lerp(0.95, 1, hoverForce);
         const radius = lerp(particleSize * 0.62, particleSize * 0.9, colorMix) + hoverForce * 0.72;
 
         ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
@@ -318,7 +331,7 @@ function ParticleText({
   return (
     <div ref={rootRef} className={`particle-text ${className}`.trim()}>
       <span ref={labelRef} className="particle-text__label" aria-hidden="true">
-        {text}
+        {resolvedLines ? resolvedLines.map((line) => <span key={line}>{line}</span>) : text}
       </span>
       <canvas ref={canvasRef} className="particle-text__canvas" aria-hidden="true" />
       <span className="sr-only">{text}</span>

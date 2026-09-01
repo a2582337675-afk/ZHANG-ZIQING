@@ -835,6 +835,7 @@ export default function App() {
               <div className="hero-title-wrap" role="heading" aria-level="1">
                 <ParticleText
                   text="Welcome to Ziqing's Portfolio"
+                  lines={['Welcome to', "Ziqing's Portfolio"]}
                   color="#ff6800"
                   highlightColor="#ffed00"
                   trigger="click"
