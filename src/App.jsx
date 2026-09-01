@@ -584,12 +584,26 @@ export default function App() {
     [activeBrandCase],
   );
 
-  const selectPortfolio = (id) => {
+  const scrollToPortfolioFeature = () => {
+    const target =
+      document.querySelector('#projects .portfolio-feature') ||
+      document.querySelector('#projects');
+
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const selectPortfolio = (id, jumpToTop = false) => {
     setActivePortfolio(id);
     if (id === 'ecommerce') {
       setActiveEcommerceCase(ecommerceCases[0].id);
     } else if (id === 'brand') {
       setActiveBrandCase(brandCases[0].id);
+    }
+
+    if (jumpToTop && window.innerWidth <= 900) {
+      window.requestAnimationFrame(() => {
+        scrollToPortfolioFeature();
+      });
     }
   };
 
@@ -1344,7 +1358,7 @@ export default function App() {
                   key={item.id}
                   type="button"
                   className={`portfolio-card ${activePortfolio === item.id ? 'is-active' : ''}`}
-                  onClick={() => selectPortfolio(item.id)}
+                  onClick={() => selectPortfolio(item.id, true)}
                   aria-pressed={activePortfolio === item.id}
                 >
                   <div className="portfolio-card__thumb">
