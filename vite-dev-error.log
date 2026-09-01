@@ -1,0 +1,104 @@
+19:47:39 [vite] (client) [console.error] Warning: React does not recognize the `defaultMuted` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `defaultmuted` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+    at video
+    at div
+    at div
+    at div
+    at section
+    at main
+    at div
+    at App (http://127.0.0.1:5173/src/App.jsx:456:48)
+21:17:55 [vite] (client) [console.error] [vite] Failed to reload /src/Particles.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+21:17:55 [vite] (client) [console.error] [vite] Failed to reload /src/Particles.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+21:39:02 [vite] (client) [console.error] Warning: React does not recognize the `defaultMuted` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `defaultmuted` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+    at video
+    at div
+    at div
+    at div
+    at section
+    at main
+    at div
+    at App (http://127.0.0.1:5173/src/App.jsx?t=1788095604234:457:48)
+22:45:41 [vite] (client) [Unhandled error] TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))
+ > src/App.jsx:490:29
+    488 |          </a>
+    489 |          <nav>
+    490 |                {navItems.map(([label, href]) => (
+        |                               ^
+    491 |                  <a key={label} href={href}>
+    492 |                    {label}
+ > App src/App.jsx:490:24
+ > renderWithHooks node_modules/react-dom/cjs/react-dom.development.js:15486:17
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom.development.js:19617:19
+ > beginWork node_modules/react-dom/cjs/react-dom.development.js:21640:15
+ > HTMLUnknownElement.callCallback node_modules/react-dom/cjs/react-dom.development.js:4164:13
+ > Object.invokeGuardedCallbackDev node_modules/react-dom/cjs/react-dom.development.js:4213:15
+ > invokeGuardedCallback node_modules/react-dom/cjs/react-dom.development.js:4277:30
+ > beginWork$1 node_modules/react-dom/cjs/react-dom.development.js:27490:6
+
+22:45:41 [vite] (client) [Unhandled error] TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))
+ > src/App.jsx:490:29
+    488 |          </a>
+    489 |          <nav>
+    490 |                {navItems.map(([label, href]) => (
+        |                               ^
+    491 |                  <a key={label} href={href}>
+    492 |                    {label}
+ > App src/App.jsx:490:24
+ > renderWithHooks node_modules/react-dom/cjs/react-dom.development.js:15486:17
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom.development.js:19617:19
+ > beginWork node_modules/react-dom/cjs/react-dom.development.js:21640:15
+ > HTMLUnknownElement.callCallback node_modules/react-dom/cjs/react-dom.development.js:4164:13
+ > Object.invokeGuardedCallbackDev node_modules/react-dom/cjs/react-dom.development.js:4213:15
+ > invokeGuardedCallback node_modules/react-dom/cjs/react-dom.development.js:4277:30
+ > beginWork$1 node_modules/react-dom/cjs/react-dom.development.js:27490:6
+
+22:45:41 [vite] (client) [console.error] The above error occurred in the <App> component:
+
+    at App (http://127.0.0.1:5173/src/App.jsx?t=1788101141336:473:48)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+22:45:41 [vite] (client) [Unhandled error] TypeError: Failed to execute 'createLinearGradient' on 'CanvasRenderingContext2D': The provided double value is non-finite.
+ > draw src/App.jsx:340:18
+    338 |        ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    339 |        ctx.lineWidth = 1;
+    340 |        const gap = 56;
+        |                    ^
+    341 |        for (let x = 0; x < width; x += gap) {
+    342 |          ctx.beginPath();
+
+22:45:41 [vite] (client) [Unhandled rejection] TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))
+ > src/App.jsx:490:29
+    488 |          </a>
+    489 |          <nav>
+    490 |                {navItems.map(([label, href]) => (
+        |                               ^
+    491 |                  <a key={label} href={href}>
+    492 |                    {label}
+ > App src/App.jsx:490:24
+ > renderWithHooks node_modules/react-dom/cjs/react-dom.development.js:15486:17
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom.development.js:19617:19
+ > beginWork node_modules/react-dom/cjs/react-dom.development.js:21640:15
+ > beginWork$1 node_modules/react-dom/cjs/react-dom.development.js:27465:13
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom.development.js:26596:11
+ > workLoopSync node_modules/react-dom/cjs/react-dom.development.js:26505:4
+ > renderRootSync node_modules/react-dom/cjs/react-dom.development.js:26473:6
+
+00:27:13 [vite] (client) [console.error] Warning: React does not recognize the `defaultMuted` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `defaultmuted` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+    at video
+    at div
+    at div
+    at div
+    at section
+    at main
+    at div
+    at App (http://127.0.0.1:5173/src/App.jsx?t=1788101188320:539:48)
+05:49:28 [vite] (client) [console.error] Warning: React does not recognize the `defaultMuted` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `defaultmuted` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+    at video
+    at div
+    at div
+    at div
+    at section
+    at main
+    at div
+    at App (http://127.0.0.1:5173/src/App.jsx?t=1788111719779:539:48)

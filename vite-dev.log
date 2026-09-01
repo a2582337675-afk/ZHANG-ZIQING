@@ -1,0 +1,86 @@
+
+> personal-portfolio@0.0.0 dev
+> vite --host 127.0.0.1 --port 5173
+
+
+  VITE v8.2.2  ready in 395 ms
+
+  ➜  Local:   http://127.0.0.1:5173/
+  ➜  press h + enter to show help
+19:48:50 [vite] (client) hmr update /src/App.jsx
+19:51:15 [vite] (client) hmr update /src/App.jsx
+19:53:44 [vite] (client) hmr update /src/App.jsx
+19:58:08 [vite] (client) hmr update /src/App.jsx
+19:58:26 [vite] (client) hmr update /src/App.jsx
+20:15:30 [vite] (client) hmr update /src/App.jsx
+20:16:43 [vite] (client) hmr update /src/styles.css
+20:17:25 [vite] (client) hmr update /src/styles.css
+20:19:35 [vite] (client) hmr update /src/App.jsx
+20:20:04 [vite] (client) hmr update /src/styles.css
+20:22:04 [vite] (client) hmr update /src/styles.css
+20:22:05 [vite] (client) hmr update /src/App.jsx
+20:22:08 [vite] (client) hmr update /src/App.jsx
+20:22:08 [vite] (client) hmr update /src/styles.css
+20:23:01 [vite] (client) hmr update /src/App.jsx
+20:24:49 [vite] (client) hmr update /src/styles.css
+20:27:13 [vite] (client) hmr update /src/styles.css
+20:33:02 [vite] (client) hmr update /src/App.jsx
+20:33:21 [vite] (client) hmr update /src/styles.css
+20:38:57 [vite] (client) hmr update /src/App.jsx
+20:39:19 [vite] (client) hmr update /src/styles.css
+20:43:40 [vite] (client) hmr update /src/App.jsx
+20:44:34 [vite] (client) hmr update /src/styles.css
+21:04:00 [vite] (client) hmr update /src/App.jsx
+21:04:00 [vite] (client) dependency optimized: ogl
+21:04:00 [vite] (client) optimized dependencies changed. reloading
+21:04:21 [vite] (client) hmr update /src/styles.css
+21:04:39 [vite] (client) hmr update /src/App.jsx
+21:04:50 [vite] (client) hmr update /src/Particles.jsx
+21:13:24 [vite] (client) hmr update /src/App.jsx
+21:14:17 [vite] (client) hmr update /src/styles.css
+21:14:43 [vite] (client) hmr update /src/styles.css
+21:17:55 [vite] (client) hmr update /src/Particles.jsx
+21:18:45 [vite] (client) hmr update /src/Particles.jsx
+21:23:44 [vite] (client) hmr update /src/Particles.jsx
+21:35:05 [vite] (client) hmr update /src/styles.css
+21:41:38 [vite] (client) hmr update /src/App.jsx
+21:45:49 [vite] (client) hmr update /src/App.jsx
+21:54:26 [vite] (client) hmr update /src/styles.css
+21:55:04 [vite] (client) hmr update /src/styles.css
+21:58:23 [vite] (client) hmr update /src/styles.css
+21:59:23 [vite] (client) hmr update /src/styles.css
+22:04:33 [vite] (client) hmr update /src/styles.css
+22:11:50 [vite] (client) hmr update /src/App.jsx
+22:12:04 [vite] (client) hmr update /src/styles.css
+22:37:03 [vite] (client) hmr update /src/styles.css
+22:45:41 [vite] (client) hmr update /src/App.jsx
+22:46:28 [vite] (client) hmr update /src/App.jsx
+22:47:03 [vite] (client) hmr update /src/styles.css
+22:47:14 [vite] (client) hmr update /src/styles.css
+00:27:22 [vite] (client) hmr update /src/styles.css
+00:38:10 [vite] (client) hmr update /src/App.jsx
+00:38:41 [vite] (client) hmr update /src/styles.css
+00:40:49 [vite] (client) hmr update /src/styles.css
+00:58:51 [vite] (client) hmr update /src/styles.css
+01:03:52 [vite] (client) hmr update /src/App.jsx
+01:14:05 [vite] (client) hmr update /src/styles.css
+01:17:19 [vite] (client) hmr update /src/styles.css
+01:20:27 [vite] (client) hmr update /src/App.jsx
+01:20:55 [vite] (client) hmr update /src/styles.css
+01:24:06 [vite] (client) hmr update /src/styles.css
+01:24:47 [vite] (client) hmr update /src/styles.css
+01:24:48 [vite] (client) hmr update /src/styles.css
+01:24:50 [vite] (client) hmr update /src/styles.css
+01:26:03 [vite] (client) hmr update /src/styles.css
+01:27:33 [vite] (client) hmr update /src/styles.css
+01:30:17 [vite] (client) hmr update /src/styles.css
+01:33:13 [vite] (client) hmr update /src/styles.css
+01:35:23 [vite] (client) hmr update /src/styles.css
+01:38:06 [vite] (client) hmr update /src/App.jsx
+01:38:25 [vite] (client) hmr update /src/styles.css
+01:41:59 [vite] (client) hmr update /src/App.jsx
+01:43:00 [vite] (client) hmr update /src/styles.css
+01:45:56 [vite] (client) hmr update /src/styles.css
+05:49:18 [vite] (client) hmr update /src/styles.css
+05:49:21 [vite] (client) hmr update /src/styles.css
+05:49:22 [vite] (client) hmr update /src/styles.css
