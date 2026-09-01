@@ -97,12 +97,11 @@ const brandCases = [
     id: 'cuco-cookies',
     title: 'CUCO饼干包装',
     badge: '包装设计',
-    summary: '饼干包装完整提案，去掉重复页后保留 22 页并加入主视频，包含品牌命名、包装展开、技术页和配色方向。',
+    summary: '饼干包装完整提案，去掉重复页后保留 22 页，包含品牌命名、包装展开、技术页和配色方向。',
     cover: '/portfolio/brand/cuco-cookies/Main Comp.mp4',
     type: 'video',
     chips: ['视频', '包装设计', '品牌命名', '展开图', '配色方案'],
     frames: [
-      ['主视频', '/portfolio/brand/cuco-cookies/Main Comp.mp4'],
       ...Array.from({ length: 26 }, (_, index) => index + 1)
         .filter((pageNumber) => !new Set([16, 17, 20, 26]).has(pageNumber))
         .map((pageNumber) => {
