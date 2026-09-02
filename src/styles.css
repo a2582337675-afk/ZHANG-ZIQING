@@ -183,6 +183,7 @@ main {
 }
 
 .header-actions {
+  position: relative;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -199,6 +200,83 @@ main {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.03);
   color: rgba(238, 242, 247, 0.72);
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.menu-button.is-open {
+  background: rgba(255, 187, 0, 0.18);
+  border-color: rgba(255, 187, 0, 0.46);
+  color: var(--signal);
+  box-shadow: 0 14px 32px rgba(255, 187, 0, 0.18);
+}
+
+.header-menu {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  z-index: 5;
+  width: 178px;
+  padding: 8px;
+  border: 1px solid rgba(255, 187, 0, 0.24);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(22, 18, 8, 0.92), rgba(7, 9, 14, 0.9)),
+    rgba(7, 9, 14, 0.9);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.38),
+    0 0 42px rgba(255, 187, 0, 0.13);
+  backdrop-filter: blur(18px) saturate(1.2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px) scale(0.98);
+  transform-origin: top right;
+  transition:
+    opacity 180ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.header-menu.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.header-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: rgba(238, 242, 247, 0.72);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.header-menu__item svg {
+  flex: 0 0 auto;
+}
+
+.header-menu__item:hover,
+.header-menu__item:focus-visible,
+.header-menu__item.is-active {
+  border-color: rgba(255, 187, 0, 0.3);
+  background: rgba(255, 187, 0, 0.14);
+  color: var(--signal);
+  transform: translateX(2px);
 }
 
 .ghost-button,
@@ -1604,9 +1682,9 @@ main {
   }
 
   .hero {
-    min-height: 100svh;
+    min-height: auto;
     height: auto;
-    padding: 132px 0 20px;
+    padding: 120px 0 16px;
   }
 
   .hero-stage {
@@ -1616,7 +1694,7 @@ main {
   .hero-composition {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    gap: 18px;
+    gap: 12px;
     padding-top: 0;
   }
 
@@ -1626,9 +1704,9 @@ main {
   }
 
   .hero-index {
-    font-size: clamp(2.5rem, 11vw, 4.6rem);
+    font-size: clamp(2.15rem, 10vw, 3.8rem);
     letter-spacing: -0.035em;
-    line-height: 1.02;
+    line-height: 0.98;
   }
 
   .hero-copy {
@@ -1638,20 +1716,20 @@ main {
 
   .hero-copy__lead {
     max-width: none;
-    font-size: 0.92rem;
-    line-height: 1.72;
+    font-size: 0.88rem;
+    line-height: 1.58;
   }
 
   .hero-score {
-    margin-top: 18px;
+    margin-top: 12px;
   }
 
   .hero-score strong {
-    font-size: clamp(2.9rem, 13vw, 4.4rem);
+    font-size: clamp(2.4rem, 11vw, 3.6rem);
   }
 
   .hero-actions {
-    margin-top: 20px;
+    margin-top: 14px;
   }
 
   .hero .primary-button {
@@ -1663,16 +1741,16 @@ main {
     position: static;
     right: auto;
     bottom: auto;
-    margin-top: 4px;
+    margin-top: 0;
     gap: 12px;
   }
 
   .hero-statement span {
-    font-size: clamp(2.8rem, 15vw, 4.4rem);
+    font-size: clamp(2.2rem, 12vw, 3.2rem);
   }
 
   .hero-statement p {
-    font-size: clamp(1rem, 4vw, 1.4rem);
+    font-size: clamp(0.88rem, 3.8vw, 1.15rem);
   }
 
   .hero-role-strip {
@@ -1682,19 +1760,19 @@ main {
     bottom: auto;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 10px 16px;
-    margin-top: 6px;
-    padding-top: 12px;
+    gap: 8px 12px;
+    margin-top: 2px;
+    padding-top: 8px;
   }
 
   .section-heading {
     gap: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
 
   .section-heading h2 {
     max-width: 100%;
-    font-size: clamp(1.5rem, 7.5vw, 2.4rem);
+    font-size: clamp(1.35rem, 6.4vw, 2rem);
   }
 
   .section-heading--row {
@@ -1703,8 +1781,8 @@ main {
   }
 
   .section-note {
-    font-size: 0.92rem;
-    line-height: 1.65;
+    font-size: 0.84rem;
+    line-height: 1.55;
   }
 
   .project-grid,
@@ -1716,14 +1794,14 @@ main {
 
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 12px;
   }
 
   .portrait-card {
     max-width: 440px;
     justify-self: center;
-    padding: 12px;
-    border-radius: 20px;
+    padding: 10px;
+    border-radius: 16px;
   }
 
   .about-copy {
@@ -1731,18 +1809,18 @@ main {
   }
 
   .info-list {
-    gap: 14px;
+    gap: 10px;
   }
 
   .info-list dl {
     grid-template-columns: 82px 1fr;
-    gap: 12px;
-    padding-bottom: 14px;
+    gap: 10px;
+    padding-bottom: 12px;
   }
 
   .self-review {
     margin-top: 4px;
-    padding-top: 14px;
+    padding-top: 10px;
   }
 
   .self-review p,
@@ -1750,31 +1828,31 @@ main {
   .project-card__meta p,
   .strength-card p,
   .contact-card p {
-    font-size: 0.95rem;
-    line-height: 1.75;
+    font-size: 0.86rem;
+    line-height: 1.55;
   }
 
   .about-side,
   .metric-grid {
-    gap: 12px;
+    gap: 10px;
   }
 
   .contact-mini,
   .metric-card,
   .project-card,
   .contact-card {
-    border-radius: 16px;
+    border-radius: 14px;
   }
 
   .contact-mini,
   .metric-card,
   .project-card__meta,
   .contact-card {
-    padding: 16px;
+    padding: 12px;
   }
 
   .metric-card strong {
-    font-size: 1.45rem;
+    font-size: 1.25rem;
   }
 
   .portfolio-grid,
@@ -1787,76 +1865,76 @@ main {
 
   .portfolio-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
+    gap: 6px;
   }
 
   .portfolio-tabs {
     grid-template-columns: 1fr;
-    gap: 10px;
-    margin: 14px 0 18px;
+    gap: 8px;
+    margin: 12px 0 14px;
   }
 
   .portfolio-tab {
-    min-height: 84px;
-    padding: 14px 14px 12px;
-    border-radius: 16px;
+    min-height: 64px;
+    padding: 10px 10px 8px;
+    border-radius: 12px;
   }
 
   .portfolio-tab strong {
-    font-size: 0.98rem;
+    font-size: 0.74rem;
   }
 
   .portfolio-tab small {
     max-width: none;
-    font-size: 0.74rem;
+    font-size: 0.62rem;
   }
 
   .portfolio-feature {
-    gap: 16px;
-    padding: 16px;
-    border-radius: 20px;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 16px;
   }
 
   .portfolio-feature__image {
-    min-height: 240px;
-    border-radius: 14px;
+    min-height: 180px;
+    border-radius: 12px;
   }
 
   .portfolio-feature__content {
-    gap: 12px;
+    gap: 8px;
   }
 
   .portfolio-feature__content h3 {
-    font-size: clamp(1.35rem, 6.5vw, 2rem);
+    font-size: clamp(1.1rem, 5.6vw, 1.6rem);
   }
 
   .portfolio-feature__meta {
-    gap: 10px;
+    gap: 8px;
   }
 
   .portfolio-feature__meta div {
-    padding: 14px 15px;
-    border-radius: 14px;
+    padding: 10px 12px;
+    border-radius: 12px;
   }
 
   .portfolio-case-switch {
-    gap: 10px;
+    gap: 8px;
   }
 
   .portfolio-case-switch__button {
-    padding: 12px 14px;
-    border-radius: 14px;
+    padding: 10px 12px;
+    border-radius: 12px;
   }
 
   .portfolio-gallery,
   .portfolio-media-stack {
-    gap: 16px;
-    margin-top: 18px;
+    gap: 10px;
+    margin-top: 12px;
   }
 
   .portfolio-gallery {
-    padding: 16px;
-    border-radius: 20px;
+    padding: 10px;
+    border-radius: 16px;
   }
 
   .portfolio-gallery__head {
@@ -1867,52 +1945,52 @@ main {
   }
 
   .portfolio-gallery__head h3 {
-    font-size: clamp(1.2rem, 5.8vw, 1.7rem);
+    font-size: clamp(1rem, 5vw, 1.35rem);
   }
 
   .portfolio-gallery__head p {
     max-width: none;
-    font-size: 0.92rem;
-    line-height: 1.65;
+    font-size: 0.84rem;
+    line-height: 1.45;
   }
 
   .portfolio-gallery__grid {
-    gap: 10px;
+    gap: 8px;
   }
 
   .portfolio-gallery__item figcaption,
   .portfolio-video-item figcaption {
-    padding: 10px 12px 12px;
-    font-size: 0.74rem;
+    padding: 8px 10px 10px;
+    font-size: 0.68rem;
   }
 
   .portfolio-video-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    gap: 6px;
   }
 
   .portfolio-video-item {
-    border-radius: 14px;
+    border-radius: 12px;
   }
 
   .portfolio-video-item video {
-    aspect-ratio: 16 / 8;
+    aspect-ratio: 16 / 9;
   }
 
   .portfolio-card {
-    gap: 6px;
-    padding: 8px;
-    border-radius: 14px;
+    gap: 4px;
+    padding: 6px;
+    border-radius: 12px;
   }
 
   .portfolio-card__thumb {
     min-height: 0;
-    aspect-ratio: 1.18 / 1;
-    border-radius: 10px;
+    aspect-ratio: 1.2 / 1;
+    border-radius: 8px;
   }
 
   .portfolio-card__body {
-    gap: 3px;
+    gap: 2px;
   }
 
   .portfolio-card__body .eyebrow,
@@ -1921,8 +1999,8 @@ main {
   }
 
   .portfolio-card__body h3 {
-    font-size: 0.72rem;
-    line-height: 1.12;
+    font-size: 0.62rem;
+    line-height: 1.08;
   }
 
   .portfolio-tabs {
@@ -1930,7 +2008,7 @@ main {
   }
 
   .project-grid {
-    gap: 14px;
+    gap: 10px;
   }
 
   .project-card {
@@ -1939,22 +2017,22 @@ main {
   }
 
   .project-card__visual {
-    min-height: 220px;
+    min-height: 170px;
   }
 
   .project-card__meta {
-    padding: 16px;
+    padding: 12px;
   }
 
   .strength-card,
   .contact-card {
     min-height: 0;
-    border-radius: 16px;
-    padding: 16px;
+    border-radius: 12px;
+    padding: 12px;
   }
 
   .contact-grid {
-    gap: 12px;
+    gap: 10px;
   }
 
   .contact-section {
@@ -2025,18 +2103,18 @@ main {
   }
 
   .hero {
-    padding-top: 112px;
+    padding-top: 104px;
   }
 
   .hero-index {
-    font-size: clamp(2.15rem, 10.5vw, 3.45rem);
+    font-size: clamp(1.9rem, 9vw, 3rem);
   }
 
   .hero-copy__lead,
   .section-note,
   .portfolio-gallery__head p,
   .self-review p {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
   }
 
   .portfolio-gallery__item img,
@@ -2049,12 +2127,12 @@ main {
   }
 
   .portfolio-feature__image {
-    min-height: 200px;
+    min-height: 160px;
   }
 
   .portfolio-card__thumb {
     min-height: 0;
-    aspect-ratio: 1.1 / 1;
+    aspect-ratio: 1.12 / 1;
   }
 
   .portfolio-grid {

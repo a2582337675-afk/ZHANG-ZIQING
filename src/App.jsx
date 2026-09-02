@@ -534,10 +534,12 @@ function DockNav({ items, activeHash }) {
 
 export default function App() {
   const pageShellRef = useRef(null);
+  const headerMenuRef = useRef(null);
   const [activeHeroVideo, setActiveHeroVideo] = useState(0);
   const [activePortfolio, setActivePortfolio] = useState(portfolioCategories[0].id);
   const [activeEcommerceCase, setActiveEcommerceCase] = useState(ecommerceCases[0].id);
   const [activeBrandCase, setActiveBrandCase] = useState(brandCases[0].id);
+  const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(() => {
     if (typeof window === 'undefined') return '#home';
     return window.location.hash || '#home';
@@ -600,7 +602,7 @@ export default function App() {
       setActiveBrandCase(brandCases[0].id);
     }
 
-    if (jumpToTop && window.innerWidth <= 900) {
+    if (jumpToTop) {
       window.requestAnimationFrame(() => {
         scrollToPortfolioFeature();
       });
@@ -614,6 +616,7 @@ export default function App() {
   useEffect(() => {
     const updateHash = () => {
       setActiveSection(window.location.hash || '#home');
+      setIsHeaderMenuOpen(false);
     };
 
     updateHash();
@@ -623,6 +626,29 @@ export default function App() {
       window.removeEventListener('hashchange', updateHash);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isHeaderMenuOpen) return undefined;
+
+    const closeOnOutsideClick = (event) => {
+      if (headerMenuRef.current?.contains(event.target)) return;
+      setIsHeaderMenuOpen(false);
+    };
+
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsHeaderMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', closeOnOutsideClick);
+    document.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsideClick);
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [isHeaderMenuOpen]);
 
   useEffect(() => {
     const tryPlay = (video) => {
@@ -863,14 +889,44 @@ export default function App() {
           <span className="brand-name">张子卿个人站</span>
         </a>
         <DockNav items={navItems} activeHash={activeSection} />
-        <div className="header-actions">
+        <div className="header-actions" ref={headerMenuRef}>
           <a className="ghost-button" href="#contact">
             <Mail size={16} />
             联系我
           </a>
-          <a className="menu-button" href="#projects" aria-label="查看作品">
+          <button
+            className={`menu-button${isHeaderMenuOpen ? ' is-open' : ''}`}
+            type="button"
+            aria-label="打开页面分类"
+            aria-expanded={isHeaderMenuOpen}
+            aria-controls="header-category-menu"
+            onClick={() => setIsHeaderMenuOpen((open) => !open)}
+          >
             <Menu size={18} />
-          </a>
+          </button>
+          <div
+            id="header-category-menu"
+            className={`header-menu${isHeaderMenuOpen ? ' is-open' : ''}`}
+            aria-hidden={!isHeaderMenuOpen}
+          >
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const label = item.href === '#contact' ? '联系我' : item.label;
+
+              return (
+                <a
+                  key={item.href}
+                  className={`header-menu__item${activeSection === item.href ? ' is-active' : ''}`}
+                  href={item.href}
+                  tabIndex={isHeaderMenuOpen ? 0 : -1}
+                  onClick={() => setIsHeaderMenuOpen(false)}
+                >
+                  <Icon size={16} />
+                  <span>{label}</span>
+                </a>
+              );
+            })}
+          </div>
         </div>
       </header>
 
