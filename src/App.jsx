@@ -312,6 +312,13 @@ const portfolioCategories = [
   },
 ];
 
+const portfolioCardPosters = {
+  comic: '/portfolio/comic/分开.mp4',
+  ecommerce: ecommerceCases[0].frames[0][1],
+  ads: '/portfolio/ads/01-参考模式.mp4',
+  brand: '/portfolio/brand/cuco-cookies/pages/cuco-01.png',
+};
+
 function MotionBackdrop() {
   const canvasRef = useRef(null);
 
@@ -532,6 +539,16 @@ function DockNav({ items, activeHash }) {
   );
 }
 
+function StaticMediaPreview({ src, alt, className = '', poster }) {
+  const isVideo = src?.toLowerCase().endsWith('.mp4');
+
+  return isVideo ? (
+    <video className={className} src={src} poster={poster} muted playsInline loop preload="none" />
+  ) : (
+    <img className={className} src={src} alt={alt} loading="lazy" decoding="async" />
+  );
+}
+
 export default function App() {
   const pageShellRef = useRef(null);
   const headerMenuRef = useRef(null);
@@ -539,6 +556,8 @@ export default function App() {
   const [activePortfolio, setActivePortfolio] = useState(portfolioCategories[0].id);
   const [activeEcommerceCase, setActiveEcommerceCase] = useState(ecommerceCases[0].id);
   const [activeBrandCase, setActiveBrandCase] = useState(brandCases[0].id);
+  const [displayedEcommerceItem, setDisplayedEcommerceItem] = useState(ecommerceCases[0]);
+  const [pendingEcommerceItem, setPendingEcommerceItem] = useState(null);
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(() => {
     if (typeof window === 'undefined') return '#home';
@@ -596,11 +615,6 @@ export default function App() {
 
   const selectPortfolio = (id, jumpToTop = false) => {
     setActivePortfolio(id);
-    if (id === 'ecommerce') {
-      setActiveEcommerceCase(ecommerceCases[0].id);
-    } else if (id === 'brand') {
-      setActiveBrandCase(brandCases[0].id);
-    }
 
     if (jumpToTop) {
       window.requestAnimationFrame(() => {
@@ -668,6 +682,20 @@ export default function App() {
     }
   }, [activePortfolioItem.id, activeEcommerceItem.cover, activeBrandItem.cover]);
 
+  useEffect(() => {
+    if (activePortfolioItem.id !== 'ecommerce') {
+      setPendingEcommerceItem(null);
+      return;
+    }
+
+    if (activeEcommerceItem.cover === displayedEcommerceItem.cover) {
+      setPendingEcommerceItem(null);
+      return;
+    }
+
+    setPendingEcommerceItem(activeEcommerceItem);
+  }, [activePortfolioItem.id, activeEcommerceItem.cover, activeEcommerceItem.type, displayedEcommerceItem.cover]);
+
   const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText(contactEmail);
@@ -692,6 +720,63 @@ export default function App() {
         setCopiedEmail(false);
       }, 1800);
     }
+  };
+
+  const renderMediaPreview = (item, { pending = false, onReady } = {}) => {
+    if (!item) return null;
+
+    if (item.type === 'video') {
+      return (
+        <video
+          className={`portfolio-feature__video${pending ? ' is-pending' : ''}`}
+          src={item.cover}
+          poster={
+            item.id === 'ecommerce'
+              ? item.frames?.[0]?.[1] || '/hero-background.svg'
+              : item.id === 'brand'
+                ? '/portfolio/brand/cuco-cookies/pages/cuco-01.png'
+                : '/hero-background.svg'
+          }
+          controls={!pending}
+          autoPlay={!pending}
+          muted
+          loop={!pending}
+          playsInline
+          preload={pending ? 'auto' : 'metadata'}
+          defaultMuted
+          disablePictureInPicture
+          onCanPlay={(event) => {
+            if (pending) {
+              event.currentTarget.play().catch(() => {});
+            }
+            onReady?.();
+          }}
+          onLoadedData={(event) => {
+            if (pending) {
+              event.currentTarget.play().catch(() => {});
+            }
+            onReady?.();
+          }}
+        />
+      );
+    }
+
+    return (
+      <img
+        className={pending ? 'is-pending' : ''}
+        src={item.cover}
+        alt={item.title}
+        loading={pending ? 'eager' : 'lazy'}
+        decoding="async"
+        onLoad={() => onReady?.()}
+      />
+    );
+  };
+
+  const commitEcommercePreview = () => {
+    if (!pendingEcommerceItem) return;
+    setDisplayedEcommerceItem(pendingEcommerceItem);
+    setPendingEcommerceItem(null);
   };
 
   useLayoutEffect(() => {
@@ -1104,30 +1189,17 @@ export default function App() {
             <div className="portfolio-feature">
               <div className="portfolio-feature__image">
                 {activePortfolioItem.id === 'ecommerce' ? (
-                  activeEcommerceItem.type === 'video' ? (
-                    <video
-                      key={activeEcommerceItem.cover}
-                      ref={ecommerceVideoRef}
-                      className="portfolio-feature__video"
-                      src={activeEcommerceItem.cover}
-                      controls
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="auto"
-                      defaultMuted
-                      disablePictureInPicture
-                      onCanPlay={(event) => {
-                        event.currentTarget.play().catch(() => {});
-                      }}
-                      onLoadedData={(event) => {
-                        event.currentTarget.play().catch(() => {});
-                      }}
-                    />
-                  ) : (
-                    <img src={activeEcommerceItem.cover} alt={activeEcommerceItem.title} loading="lazy" />
-                  )
+                  <div className="portfolio-feature__swap">
+                    {renderMediaPreview(displayedEcommerceItem)}
+                    {pendingEcommerceItem && (
+                      <div className="portfolio-feature__swap-layer" aria-hidden="true">
+                        {renderMediaPreview(pendingEcommerceItem, {
+                          pending: true,
+                          onReady: commitEcommercePreview,
+                        })}
+                      </div>
+                    )}
+                  </div>
                 ) : activePortfolioItem.id === 'brand' ? (
                   activeBrandItem.type === 'video' ? (
                     <video
@@ -1370,28 +1442,6 @@ export default function App() {
                 <div className="portfolio-gallery">
                   <div className="portfolio-gallery__head">
                     <div>
-                      <p className="eyebrow">AI漫剧首页播放</p>
-                      <h3>分开</h3>
-                    </div>
-                    <p>第一个视频固定作为首页主播放，下面展示另外两条补充视频。</p>
-                  </div>
-                  <figure className="portfolio-video-item is-featured">
-                    <video
-                      src={activePortfolioItem.videos?.[0]?.[1]}
-                      controls
-                      playsInline
-                      preload="metadata"
-                      muted
-                      autoPlay
-                      loop
-                    />
-                    <figcaption>{activePortfolioItem.videos?.[0]?.[0]}</figcaption>
-                  </figure>
-                </div>
-
-                <div className="portfolio-gallery">
-                  <div className="portfolio-gallery__head">
-                    <div>
                       <p className="eyebrow">AI漫剧补充视频</p>
                       <h3>古风权谋</h3>
                     </div>
@@ -1417,34 +1467,23 @@ export default function App() {
                   onClick={() => selectPortfolio(item.id, true)}
                   aria-pressed={activePortfolio === item.id}
                 >
-                  <div className="portfolio-card__thumb">
-                    {item.cover ? (
-                      item.type === 'video' ? (
-                        <video
-                          className="portfolio-card__video"
-                          src={item.cover}
-                          poster={
-                            item.id === 'ecommerce'
-                              ? ecommerceCases[0].frames[0][1]
-                              : item.id === 'brand'
-                                ? '/portfolio/brand/cuco-cookies/pages/cuco-01.png'
-                                : '/hero-background.svg'
-                          }
-                          muted
-                          playsInline
-                          loop
-                          autoPlay
-                          preload="auto"
-                          onLoadedData={(event) => {
-                            event.currentTarget.play().catch(() => {});
-                          }}
-                        />
-                      ) : (
-                        <img src={item.cover} alt={item.title} loading="lazy" />
-                      )
-                    ) : (
-                      <div className="portfolio-card__thumb--empty">
-                        <span className="eyebrow">COMING SOON</span>
+                <div className="portfolio-card__thumb">
+                  {item.cover ? (
+                    <StaticMediaPreview
+                      className="portfolio-card__media"
+                      src={portfolioCardPosters[item.id] || item.cover}
+                      alt={item.title}
+                      poster={
+                        item.id === 'ecommerce'
+                          ? ecommerceCases[0].frames[0][1]
+                          : item.id === 'brand'
+                            ? '/portfolio/brand/cuco-cookies/pages/cuco-01.png'
+                            : '/hero-background.svg'
+                      }
+                    />
+                  ) : (
+                    <div className="portfolio-card__thumb--empty">
+                      <span className="eyebrow">COMING SOON</span>
                         <strong>AI 漫剧</strong>
                         <p>等待你的角色、场景和封面素材。</p>
                       </div>
