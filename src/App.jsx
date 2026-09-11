@@ -313,9 +313,9 @@ const portfolioCategories = [
 ];
 
 const portfolioCardPosters = {
-  comic: '/portfolio/comic/分开.mp4',
+  comic: '/portfolio/comic/分开-poster.jpg',
   ecommerce: ecommerceCases[0].frames[0][1],
-  ads: '/portfolio/ads/01-参考模式.mp4',
+  ads: '/portfolio/ads/01-参考模式-poster.jpg',
   brand: '/portfolio/brand/cuco-cookies/pages/cuco-01.png',
 };
 
