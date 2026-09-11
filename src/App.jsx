@@ -1227,7 +1227,7 @@ export default function App() {
                       className="portfolio-feature__video"
                       src={activePortfolioItem.cover}
                       poster="/hero-background.svg"
-                      controls={!(activePortfolioItem.id === 'comic' || activePortfolioItem.id === 'ads')}
+                      controls
                       autoPlay={activePortfolioItem.id === 'comic' || activePortfolioItem.id === 'ads'}
                       muted={activePortfolioItem.id === 'comic' || activePortfolioItem.id === 'ads'}
                       loop={activePortfolioItem.id === 'comic' || activePortfolioItem.id === 'ads'}
@@ -1260,6 +1260,8 @@ export default function App() {
                     ? activeEcommerceItem.title
                     : activePortfolioItem.id === 'brand'
                       ? activeBrandItem.title
+                      : activePortfolioItem.id === 'comic'
+                        ? activePortfolioItem.videos?.[0]?.[0] || activePortfolioItem.title
                       : activePortfolioItem.title}
                 </h3>
                 <p>
