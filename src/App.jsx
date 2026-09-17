@@ -70,17 +70,7 @@ const adsMedia = {
   videos: [
     ['参考模式', '/portfolio/ads/01-参考模式.mp4'],
     ['参考模式 retry 02', '/portfolio/ads/01-参考模式-retry-02.mp4'],
-  ],
-  outdoor: [
-    ['户外广告牌 01', '/portfolio/ads/outdoor/户外广告牌-09_画板 1.jpg'],
-    ['户外广告牌 02', '/portfolio/ads/outdoor/户外广告牌-09-02.jpg'],
-    ['户外广告牌 03', '/portfolio/ads/outdoor/户外广告牌-09-03.jpg'],
-    ['户外广告牌 04', '/portfolio/ads/outdoor/户外广告牌-09-04.jpg'],
-    ['户外广告牌 05', '/portfolio/ads/outdoor/户外广告牌-09-05.jpg'],
-    ['户外广告牌 06', '/portfolio/ads/outdoor/户外广告牌-09-06.jpg'],
-    ['户外广告牌 07', '/portfolio/ads/outdoor/户外广告牌-09-07.jpg'],
-    ['户外广告牌 08', '/portfolio/ads/outdoor/户外广告牌-09-08.jpg'],
-    ['户外广告牌 09', '/portfolio/ads/outdoor/户外广告牌-09-09.jpg'],
+    ['真假女友', '/portfolio/ads/真假女友.mp4'],
   ],
 };
 
@@ -292,11 +282,10 @@ const portfolioCategories = [
     title: 'AI广告设计 / 小视频',
     tagline: '投放海报 / 动态广告 / 短视频封面',
     summary:
-      '适合信息流投放、短视频传播和品牌活动素材。当前已接入两条 AI 广告小视频和一组 AI 户外广告。',
+      '适合信息流投放、短视频传播和品牌活动素材。当前已接入三条 AI 广告小视频。',
     cover: '/portfolio/ads/01-参考模式.mp4',
     type: 'video',
     videos: adsMedia.videos,
-    outdoor: adsMedia.outdoor,
     chips: ['动态广告', '小视频', '信息流素材', '投放视觉'],
   },
   {
@@ -576,8 +565,8 @@ export default function App() {
       [
         '学历',
         <span className="detail-lines">
-          <span>本科：淮阴师范学院</span>
-          <span>硕士：意大利·那不勒斯美术学院</span>
+          <span>本科：2019.09-2023.06 淮阴师范学院</span>
+          <span>硕士：2024.10-2026.07 意大利·那不勒斯美术学院</span>
         </span>,
       ],
       [
@@ -1334,8 +1323,8 @@ export default function App() {
                           ? '三个品牌项目已接入'
                           : activePortfolioItem.id === 'comic'
                             ? '三个AI漫剧视频已接入'
-                            : activePortfolioItem.id === 'ads'
-                              ? '广告视频与户外广告已接入'
+                              : activePortfolioItem.id === 'ads'
+                              ? '广告视频已接入'
                               : '作品内容已接入'}
                     </strong>
                   </div>
@@ -1400,41 +1389,21 @@ export default function App() {
             )}
 
             {activePortfolioItem.id === 'ads' && (
-              <div className="portfolio-media-stack">
-                <div className="portfolio-gallery">
-                  <div className="portfolio-gallery__head">
-                    <div>
-                      <p className="eyebrow">AI广告小视频</p>
-                      <h3>动态广告案例</h3>
-                    </div>
-                    <p>视频可直接播放，和下面的户外广告分开展示。</p>
+              <div className="portfolio-gallery">
+                <div className="portfolio-gallery__head">
+                  <div>
+                    <p className="eyebrow">AI广告小视频</p>
+                    <h3>动态广告案例</h3>
                   </div>
-                  <div className="portfolio-video-grid">
-                    {activePortfolioItem.videos?.map(([label, src]) => (
-                      <figure key={src} className="portfolio-video-item">
-                        <video src={src} controls playsInline preload="metadata" />
-                        <figcaption>{label}</figcaption>
-                      </figure>
-                    ))}
-                  </div>
+                  <p>视频可直接播放。</p>
                 </div>
-
-                <div className="portfolio-gallery">
-                  <div className="portfolio-gallery__head">
-                    <div>
-                      <p className="eyebrow">AI户外广告</p>
-                      <h3>户外广告牌案例</h3>
-                    </div>
-                    <p>这组是户外广告牌，不归入小视频，单独作为视觉落地展示。</p>
-                  </div>
-                  <div className="portfolio-gallery__grid">
-                    {activePortfolioItem.outdoor?.map(([label, src]) => (
-                      <figure key={src} className="portfolio-gallery__item">
-                        <img src={src} alt={label} loading="lazy" />
-                        <figcaption>{label}</figcaption>
-                      </figure>
-                    ))}
-                  </div>
+                <div className="portfolio-video-grid">
+                  {activePortfolioItem.videos?.map(([label, src]) => (
+                    <figure key={src} className="portfolio-video-item">
+                      <video src={src} controls playsInline preload="metadata" />
+                      <figcaption>{label}</figcaption>
+                    </figure>
+                  ))}
                 </div>
               </div>
             )}
