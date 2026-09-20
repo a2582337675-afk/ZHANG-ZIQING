@@ -1,7 +1,10 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowUpRight,
+  BookOpen,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Copy,
   Home,
   Images,
@@ -32,8 +35,8 @@ const contactEmail = '240036296@qq.com';
 const navItems = [
   { label: '首页', href: '#home', icon: Home },
   { label: '经历', href: '#about', icon: UserRound },
-  { label: '作品集', href: '#projects', icon: Images },
-  { label: '联系', href: '#contact', icon: Mail },
+  { label: '魔法书', href: '#magic-book', icon: BookOpen },
+  { label: 'AIGC', href: '#projects', icon: Images },
 ];
 
 const stats = [
@@ -65,6 +68,23 @@ const strengths = [
     text: '对客户心理和多线程沟通敏感，适合长期项目协同。',
   },
 ];
+
+const magicBookPages = [
+  ...Array.from({ length: 126 }, (_, index) => {
+  const pageNumber = index + 1;
+  const paddedPageNumber = String(pageNumber).padStart(3, '0');
+
+  return {
+    pageNumber,
+    src: `/portfolio/magic-book/pages/page-${paddedPageNumber}.jpg`,
+    type: pageNumber === 1 ? 'cover' : pageNumber === 126 ? 'back-cover' : 'inside',
+  };
+  }),
+].flatMap((page, index) => (
+  index === 0
+    ? [page, { type: 'blank', pageNumber: null }]
+    : [page]
+));
 
 const adsMedia = {
   videos: [
@@ -538,6 +558,163 @@ function StaticMediaPreview({ src, alt, className = '', poster }) {
   );
 }
 
+function VisualMagicBook() {
+  const totalSpreads = Math.ceil((magicBookPages.length + 1) / 2);
+  const [spreadIndex, setSpreadIndex] = useState(0);
+  const [pageInput, setPageInput] = useState('1');
+  const [turn, setTurn] = useState(null);
+  const turnTimerRef = useRef(0);
+
+  const isSinglePage = spreadIndex === 0;
+  const singlePage = magicBookPages[0];
+  const leftPage = isSinglePage ? null : magicBookPages[spreadIndex * 2 - 1] || null;
+  const rightPage = isSinglePage ? null : magicBookPages[spreadIndex * 2] || null;
+  const canGoPrev = spreadIndex > 0;
+  const canGoNext = spreadIndex < totalSpreads - 1;
+
+  useEffect(() => () => window.clearTimeout(turnTimerRef.current), []);
+
+  useEffect(() => {
+    setPageInput(String(spreadIndex + 1));
+  }, [spreadIndex]);
+
+  const goToSpread = (requestedIndex) => {
+    const parsedIndex = Number.parseInt(requestedIndex, 10);
+    if (!Number.isFinite(parsedIndex)) {
+      setPageInput(String(spreadIndex + 1));
+      return;
+    }
+
+    const nextIndex = Math.min(totalSpreads - 1, Math.max(0, parsedIndex - 1));
+    if (nextIndex === spreadIndex || turn) return;
+
+    window.clearTimeout(turnTimerRef.current);
+    const direction = nextIndex > spreadIndex ? 'next' : 'prev';
+    const turningPage = direction === 'next'
+      ? (spreadIndex === 0 ? magicBookPages[0] : magicBookPages[spreadIndex * 2] || null)
+      : magicBookPages[spreadIndex * 2 - 1] || null;
+
+    setTurn({
+      direction,
+      page: turningPage,
+      targetIsSingle: nextIndex === 0,
+    });
+    setSpreadIndex(nextIndex);
+    turnTimerRef.current = window.setTimeout(() => setTurn(null), 780);
+  };
+
+  const turnPage = (direction) => goToSpread(spreadIndex + direction + 1);
+
+  const renderPage = (page, side, extraClass = '') => {
+    if (!page) return null;
+
+    if (page.type === 'blank') {
+      return (
+        <div className={`magic-book__page magic-book__page--${side} magic-book__page--blank ${extraClass}`} aria-label="空白页">
+          <div className="magic-book__paper-grain" />
+          {extraClass ? <div className="magic-book__turn-shade" /> : null}
+        </div>
+      );
+    }
+
+    return (
+      <div className={`magic-book__page magic-book__page--${side} magic-book__page--${page.type || 'inside'} ${extraClass}`}>
+        <img
+          className="magic-book__page-image"
+          src={page.src}
+          alt={`平面视觉魔法书第 ${page.pageNumber} 页`}
+          loading={page.pageNumber === 1 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+        {extraClass ? <div className="magic-book__turn-shade" /> : null}
+      </div>
+    );
+  };
+
+  return (
+    <section className="section magic-book-section" id="magic-book">
+      <div className="shell magic-book-layout">
+        <div className="section-heading section-heading--row">
+          <div>
+            <p className="eyebrow">魔法书</p>
+            <h2>一本可以翻阅的横版画册。</h2>
+          </div>
+          <p className="section-note">
+            包含整套VI，LOGO，IP形象，插画，海报，字体，延展，包装。展厅陈列设计。
+          </p>
+        </div>
+
+        <div className={`magic-book ${isSinglePage ? 'is-single-page' : ''} ${turn ? `is-turning-${turn.direction}` : ''}`}>
+          <div className="magic-book__shadow" aria-hidden="true" />
+          <div className="magic-book__spine" aria-hidden="true" />
+          <div className={`magic-book__spread${isSinglePage ? ' is-single' : ''}`}>
+            {isSinglePage ? renderPage(singlePage, 'single') : (
+              <>
+                {renderPage(leftPage, 'left')}
+                {renderPage(rightPage, 'right')}
+              </>
+            )}
+            <button
+              className="magic-book__hotspot magic-book__hotspot--left"
+              type="button"
+              onClick={() => turnPage(-1)}
+              disabled={!canGoPrev}
+              aria-label="上一页"
+            />
+            <button
+              className="magic-book__hotspot magic-book__hotspot--right"
+              type="button"
+              onClick={() => turnPage(1)}
+              disabled={!canGoNext}
+              aria-label="下一页"
+            />
+          </div>
+          {turn ? (
+            <div
+              className={`magic-book__turn-layer magic-book__turn-layer--${turn.direction}${turn.targetIsSingle ? ' is-target-single' : ''}`}
+              aria-hidden="true"
+            >
+              {renderPage(turn.page, turn.direction === 'next' ? 'right' : 'left', 'magic-book__turn-page')}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="magic-book__controls">
+          <button type="button" onClick={() => turnPage(-1)} disabled={!canGoPrev}>
+            <ChevronLeft size={18} />
+            上一页
+          </button>
+          <div className="magic-book__page-picker">
+            <BookOpen size={16} />
+            <label>
+              第
+              <input
+                type="number"
+                min="1"
+                max={totalSpreads}
+                value={pageInput}
+                aria-label={`跳转到第几页，共 ${totalSpreads} 页`}
+                onChange={(event) => setPageInput(event.target.value)}
+                onBlur={() => goToSpread(pageInput || spreadIndex + 1)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.currentTarget.blur();
+                  }
+                }}
+              />
+              页 / {totalSpreads}
+            </label>
+          </div>
+          <button type="button" onClick={() => turnPage(1)} disabled={!canGoNext}>
+            下一页
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   const pageShellRef = useRef(null);
   const headerMenuRef = useRef(null);
@@ -851,6 +1028,13 @@ export default function App() {
           ],
         },
         {
+          section: root.querySelector('#magic-book'),
+          media: root.querySelector('#magic-book .magic-book'),
+          groups: [
+            root.querySelectorAll('#magic-book .magic-book__controls > *'),
+          ],
+        },
+        {
           section: root.querySelector('#projects'),
           media: root.querySelector('#projects .portfolio-feature__image'),
           groups: [
@@ -1146,11 +1330,13 @@ export default function App() {
           </div>
         </section>
 
+        <VisualMagicBook />
+
         <section className="section" id="projects">
           <div className="shell">
             <div className="section-heading section-heading--row">
               <div>
-                <p className="eyebrow">作品集</p>
+                <p className="eyebrow">AIGC</p>
                 <h2>先按内容分类，再把作品一件件填进去。</h2>
               </div>
               <p className="section-note">
@@ -1323,7 +1509,7 @@ export default function App() {
                           ? '三个品牌项目已接入'
                           : activePortfolioItem.id === 'comic'
                             ? '三个AI漫剧视频已接入'
-                              : activePortfolioItem.id === 'ads'
+                            : activePortfolioItem.id === 'ads'
                               ? '广告视频已接入'
                               : '作品内容已接入'}
                     </strong>
