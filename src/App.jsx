@@ -676,6 +676,9 @@ function VisualMagicBook() {
         </div>
 
         <div className="magic-book__controls">
+          <button type="button" onClick={() => goToSpread(1)} disabled={!canGoPrev}>
+            首页
+          </button>
           <button type="button" onClick={() => turnPage(-1)} disabled={!canGoPrev}>
             <ChevronLeft size={18} />
             上一页
@@ -704,6 +707,9 @@ function VisualMagicBook() {
           <button type="button" onClick={() => turnPage(1)} disabled={!canGoNext}>
             下一页
             <ChevronRight size={18} />
+          </button>
+          <button type="button" onClick={() => goToSpread(totalSpreads)} disabled={!canGoNext}>
+            尾页
           </button>
         </div>
       </div>
