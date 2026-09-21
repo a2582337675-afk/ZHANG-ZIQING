@@ -102,126 +102,6 @@ const comicMedia = {
   ],
 };
 
-const brandCases = [
-  {
-    id: 'cuco-cookies',
-    title: 'CUCO饼干包装',
-    badge: '包装设计',
-    summary: '饼干包装完整提案，去掉重复页后保留 22 页，包含品牌命名、包装展开、技术页和配色方向。',
-    cover: '/portfolio/brand/cuco-cookies/Main Comp.mp4',
-    type: 'video',
-    chips: ['视频', '包装设计', '品牌命名', '展开图', '配色方案'],
-    frames: [
-      ...Array.from({ length: 26 }, (_, index) => index + 1)
-        .filter((pageNumber) => !new Set([16, 17, 20, 26]).has(pageNumber))
-        .map((pageNumber) => {
-          const page = String(pageNumber).padStart(2, '0');
-          const labelMap = {
-            1: '封面',
-            2: '目标定义',
-            5: '概念页',
-            6: '技术页',
-            7: '技术页 2',
-            8: '命名与草案',
-            10: '包装展开',
-            11: '包装展示 01',
-            12: '包装展示 02',
-            13: '包装展示 03',
-            14: '包装展示 04',
-            15: '包装展示 05',
-            18: '包装展示 06',
-            19: '包装展示 07',
-            21: '包装展示 08',
-            22: '包装展示 09',
-            23: '包装展示 10',
-            24: '包装展示 11',
-            25: '包装展示 12',
-          };
-          return [labelMap[pageNumber] || `第 ${page} 页`, `/portfolio/brand/cuco-cookies/pages/cuco-${page}.png`];
-        }),
-    ],
-  },
-  {
-    id: 'mirage-hotel',
-    title: '海市蜃楼酒店',
-    badge: '品牌项目',
-    summary: '同一个酒店品牌项目下，包含导视系统、门牌和包装设计，用文字标签区分不同内容。',
-    cover: '/portfolio/brand/guidance/2.jpg',
-    chips: ['导视系统', '门牌', '包装设计', '品牌延展'],
-    frames: [
-      ['导视系统 01', '/portfolio/brand/guidance/2.jpg'],
-      ['导视系统 02', '/portfolio/brand/guidance/11.jpg'],
-      ['导视系统 03', '/portfolio/brand/guidance/9.jpg'],
-      ['导视系统 04', '/portfolio/brand/guidance/12.jpg'],
-      ['导视系统 05', '/portfolio/brand/guidance/12.1.png'],
-      ['导视系统 06', '/portfolio/brand/guidance/14.jpg'],
-      ['导视系统 07', '/portfolio/brand/guidance/15.jpg'],
-      ['门牌 01', '/portfolio/brand/doorplate/7.jpg'],
-      ['门牌 02', '/portfolio/brand/doorplate/13.jpg'],
-      ['门牌 03', '/portfolio/brand/doorplate/13.1.jpg'],
-      ['包装设计 01', '/portfolio/brand/packaging/4.jpg'],
-      ['包装设计 02', '/portfolio/brand/packaging/5.jpg'],
-      ['包装设计 03', '/portfolio/brand/packaging/5.1.jpg'],
-      ['包装设计 04', '/portfolio/brand/packaging/6.jpg'],
-      ['包装设计 05', '/portfolio/brand/packaging/8.jpg'],
-      ['包装设计 06', '/portfolio/brand/packaging/10.jpg'],
-    ],
-  },
-  {
-    id: 'flower-spirit',
-    title: '花中有灵音乐治疗品牌VI',
-    badge: '品牌VI',
-    summary: '音乐治疗品牌 VI 系统，包含 LOGO、插画、包装、延展、海报广告、标准色和 IP 形象。',
-    cover: '/portfolio/brand/flower-spirit/LOGO  标准化_画板 1.png',
-    chips: ['LOGO', '插画', '包装', '延展', '海报广告', '标准色', 'IP形象'],
-    frames: [
-      ['LOGO 标准化', '/portfolio/brand/flower-spirit/LOGO  标准化_画板 1.png'],
-      ['LOGO', '/portfolio/brand/flower-spirit/LOGO_画板 1.png'],
-      ['标准色', '/portfolio/brand/flower-spirit/标准色、辅助色_画板_画板 1 副本.png'],
-      ['IP形象 01', '/portfolio/brand/flower-spirit/IP 动作1.png'],
-      ['IP形象 02', '/portfolio/brand/flower-spirit/IP 动作2.png'],
-      ['IP形象 03', '/portfolio/brand/flower-spirit/IP 动作3.png'],
-      ['IP形象 04', '/portfolio/brand/flower-spirit/IP 动作4.png'],
-      ['IP形象 05', '/portfolio/brand/flower-spirit/IP 动作5.png'],
-      ['IP形象 06', '/portfolio/brand/flower-spirit/IP 动作6.png'],
-      ['插画场景 01', '/portfolio/brand/flower-spirit/场景1.jpg'],
-      ['插画场景 02', '/portfolio/brand/flower-spirit/场景2.jpg'],
-      ['插画场景 03', '/portfolio/brand/flower-spirit/场景5.jpg'],
-      ['插画场景 04', '/portfolio/brand/flower-spirit/场景6.jpg'],
-      ['包装设计 01', '/portfolio/brand/flower-spirit/1.jpg'],
-      ['包装设计 02', '/portfolio/brand/flower-spirit/2.jpg'],
-      ['包装设计 03', '/portfolio/brand/flower-spirit/3.jpg'],
-      ['包装设计 04', '/portfolio/brand/flower-spirit/4.jpg'],
-      ['包装设计 05', '/portfolio/brand/flower-spirit/5.jpg'],
-      ['包装设计 06', '/portfolio/brand/flower-spirit/7.jpg'],
-      ['包装设计 07', '/portfolio/brand/flower-spirit/8.jpg'],
-      ['包装设计 08', '/portfolio/brand/flower-spirit/10.jpg'],
-      ['包装设计 09', '/portfolio/brand/flower-spirit/11.jpg'],
-      ['包装设计 10', '/portfolio/brand/flower-spirit/12.jpg'],
-      ['包装设计 11', '/portfolio/brand/flower-spirit/14.jpg'],
-      ['包装设计 12', '/portfolio/brand/flower-spirit/17.jpg'],
-      ['品牌应用 01', '/portfolio/brand/flower-spirit/18.jpg'],
-      ['品牌应用 02', '/portfolio/brand/flower-spirit/19.jpg'],
-      ['品牌应用 03', '/portfolio/brand/flower-spirit/21.jpg'],
-      ['品牌应用 04', '/portfolio/brand/flower-spirit/22.jpg'],
-      ['包装延展 01', '/portfolio/brand/flower-spirit/b 3.jpg'],
-      ['包装延展 02', '/portfolio/brand/flower-spirit/b 6.jpg'],
-      ['延展物料 01', '/portfolio/brand/flower-spirit/b 1.jpg'],
-      ['延展物料 02', '/portfolio/brand/flower-spirit/b 7.jpg'],
-      ['延展物料 03', '/portfolio/brand/flower-spirit/b 4.1.jpg'],
-      ['延展物料 04', '/portfolio/brand/flower-spirit/b 4.2.jpg'],
-      ['延展物料 05', '/portfolio/brand/flower-spirit/b 4.3.jpg'],
-      ['延展物料 06', '/portfolio/brand/flower-spirit/b 4.4.jpg'],
-      ['延展物料 07', '/portfolio/brand/flower-spirit/b 4.5.jpg'],
-      ['延展物料 08', '/portfolio/brand/flower-spirit/b 4.6.jpg'],
-      ['延展物料 09', '/portfolio/brand/flower-spirit/b 5.jpg'],
-      ['海报广告 01', '/portfolio/brand/flower-spirit/a 1.jpg'],
-      ['海报广告 02', '/portfolio/brand/flower-spirit/a 3.jpg'],
-      ['海报广告 03', '/portfolio/brand/flower-spirit/a 4.jpg'],
-    ],
-  },
-];
-
 const ecommerceCases = [
   {
     id: 'mouse',
@@ -308,24 +188,12 @@ const portfolioCategories = [
     videos: adsMedia.videos,
     chips: ['动态广告', '小视频', '信息流素材', '投放视觉'],
   },
-  {
-    id: 'brand',
-    title: 'AI品牌视觉设计',
-    tagline: '品牌项目 / VI系统 / 导视 / 包装 / IP',
-    summary:
-      '当前接入海市蜃楼酒店、花中有灵音乐治疗品牌 VI 与 CUCO 饼干包装。后续可以继续上传新的品牌项目。',
-    cover: brandCases[0].cover,
-    type: 'video',
-    cases: brandCases,
-    chips: ['品牌VI', '导视系统', '包装设计', 'IP形象'],
-  },
 ];
 
 const portfolioCardPosters = {
   comic: '/portfolio/comic/分开-poster.jpg',
   ecommerce: ecommerceCases[0].frames[0][1],
   ads: '/portfolio/ads/01-参考模式-poster.jpg',
-  brand: '/portfolio/brand/cuco-cookies/pages/cuco-01.png',
 };
 
 function MotionBackdrop() {
@@ -559,24 +427,114 @@ function StaticMediaPreview({ src, alt, className = '', poster }) {
 }
 
 function VisualMagicBook() {
+  const normalTurnDuration = 480;
+  const rapidTurnDuration = 220;
   const totalSpreads = Math.ceil((magicBookPages.length + 1) / 2);
   const [spreadIndex, setSpreadIndex] = useState(0);
   const [pageInput, setPageInput] = useState('1');
   const [turn, setTurn] = useState(null);
+  const [pendingTargets, setPendingTargets] = useState([]);
   const turnTimerRef = useRef(0);
+  const spreadIndexRef = useRef(0);
+  const pendingTargetsRef = useRef([]);
+  const turnRef = useRef(null);
+  const turnIdRef = useRef(0);
 
   const isSinglePage = spreadIndex === 0;
-  const singlePage = magicBookPages[0];
   const leftPage = isSinglePage ? null : magicBookPages[spreadIndex * 2 - 1] || null;
   const rightPage = isSinglePage ? null : magicBookPages[spreadIndex * 2] || null;
-  const canGoPrev = spreadIndex > 0;
-  const canGoNext = spreadIndex < totalSpreads - 1;
+  const visualSpreadIndex = turn ? turn.nextIndex : spreadIndex;
+  const visualIsSinglePage = visualSpreadIndex === 0;
+  const visualSinglePage = magicBookPages[0];
+  const visualLeftPage = visualIsSinglePage ? null : magicBookPages[visualSpreadIndex * 2 - 1] || null;
+  const visualRightPage = visualIsSinglePage ? null : magicBookPages[visualSpreadIndex * 2] || null;
+  const effectiveSpreadIndex =
+    pendingTargets[pendingTargets.length - 1] ?? turn?.nextIndex ?? spreadIndex;
+  const canGoPrev = effectiveSpreadIndex > 0;
+  const canGoNext = effectiveSpreadIndex < totalSpreads - 1;
 
   useEffect(() => () => window.clearTimeout(turnTimerRef.current), []);
 
   useEffect(() => {
+    spreadIndexRef.current = spreadIndex;
     setPageInput(String(spreadIndex + 1));
   }, [spreadIndex]);
+
+  const syncPendingTargets = (targets) => {
+    pendingTargetsRef.current = targets;
+    setPendingTargets(targets);
+  };
+
+  const syncTurn = (nextTurn) => {
+    turnRef.current = nextTurn;
+    setTurn(nextTurn);
+  };
+
+  const scheduleTurnCompletion = (nextTurn) => {
+    window.clearTimeout(turnTimerRef.current);
+    const elapsed = performance.now() - nextTurn.startedAt;
+    const remaining = Math.max(0, nextTurn.duration - elapsed);
+
+    turnTimerRef.current = window.setTimeout(() => {
+      if (turnRef.current?.id !== nextTurn.id) return;
+
+      spreadIndexRef.current = nextTurn.nextIndex;
+      setSpreadIndex(nextTurn.nextIndex);
+
+      const [queuedTarget, ...remainingTargets] = pendingTargetsRef.current;
+      syncPendingTargets(remainingTargets);
+
+      if (queuedTarget !== undefined && queuedTarget !== nextTurn.nextIndex) {
+        startTurn(nextTurn.nextIndex, queuedTarget, nextTurn.duration);
+      } else {
+        syncTurn(null);
+      }
+    }, remaining);
+  };
+
+  const startTurn = (fromIndex, nextIndex, duration = normalTurnDuration) => {
+    if (fromIndex === nextIndex) {
+      syncTurn(null);
+      return;
+    }
+
+    const fromIsSinglePage = fromIndex === 0;
+    const fromLeftPage = fromIsSinglePage ? null : magicBookPages[fromIndex * 2 - 1] || null;
+    const fromRightPage = fromIsSinglePage ? null : magicBookPages[fromIndex * 2] || null;
+    const direction = nextIndex > fromIndex ? 'next' : 'prev';
+    const turningPage = direction === 'next'
+      ? (fromIsSinglePage ? magicBookPages[0] : magicBookPages[fromIndex * 2] || null)
+      : magicBookPages[fromIndex * 2 - 1] || null;
+    const holdPage = direction === 'next' ? fromLeftPage : fromRightPage;
+
+    window.clearTimeout(turnTimerRef.current);
+    turnIdRef.current += 1;
+    const nextTurn = {
+      id: turnIdRef.current,
+      direction,
+      page: turningPage,
+      holdPage,
+      sourceIsSingle: fromIsSinglePage,
+      nextIndex,
+      duration,
+      startedAt: performance.now(),
+    };
+
+    syncTurn(nextTurn);
+    scheduleTurnCompletion(nextTurn);
+  };
+
+  const accelerateTurn = () => {
+    const currentTurn = turnRef.current;
+    if (!currentTurn || currentTurn.duration <= rapidTurnDuration) return;
+
+    const acceleratedTurn = {
+      ...currentTurn,
+      duration: rapidTurnDuration,
+    };
+    syncTurn(acceleratedTurn);
+    scheduleTurnCompletion(acceleratedTurn);
+  };
 
   const goToSpread = (requestedIndex) => {
     const parsedIndex = Number.parseInt(requestedIndex, 10);
@@ -586,39 +544,51 @@ function VisualMagicBook() {
     }
 
     const nextIndex = Math.min(totalSpreads - 1, Math.max(0, parsedIndex - 1));
-    if (nextIndex === spreadIndex || turn) return;
+    const currentTurn = turnRef.current;
+    const currentQueue = pendingTargetsRef.current;
 
-    window.clearTimeout(turnTimerRef.current);
-    const direction = nextIndex > spreadIndex ? 'next' : 'prev';
-    const turningPage = direction === 'next'
-      ? (spreadIndex === 0 ? magicBookPages[0] : magicBookPages[spreadIndex * 2] || null)
-      : magicBookPages[spreadIndex * 2 - 1] || null;
+    if (currentTurn) {
+      if (nextIndex === currentTurn.nextIndex && currentQueue.length === 0) return;
+      syncPendingTargets(nextIndex === currentTurn.nextIndex ? [] : [nextIndex]);
+      accelerateTurn();
+      return;
+    }
+    if (nextIndex === spreadIndexRef.current) return;
 
-    setTurn({
-      direction,
-      page: turningPage,
-      targetIsSingle: nextIndex === 0,
-    });
-    setSpreadIndex(nextIndex);
-    turnTimerRef.current = window.setTimeout(() => setTurn(null), 780);
+    startTurn(spreadIndexRef.current, nextIndex);
   };
 
-  const turnPage = (direction) => goToSpread(spreadIndex + direction + 1);
+  const turnPage = (direction) => {
+    const currentTurn = turnRef.current;
+    const currentQueue = pendingTargetsRef.current;
+    const baseIndex =
+      currentQueue[currentQueue.length - 1] ?? currentTurn?.nextIndex ?? spreadIndexRef.current;
+    const nextIndex = Math.min(totalSpreads - 1, Math.max(0, baseIndex + direction));
 
-  const renderPage = (page, side, extraClass = '') => {
+    if (nextIndex === baseIndex) return;
+
+    if (currentTurn) {
+      syncPendingTargets([...currentQueue, nextIndex]);
+      accelerateTurn();
+      return;
+    }
+
+    startTurn(spreadIndexRef.current, nextIndex);
+  };
+
+  const renderPageFace = (page, side, faceClass = '') => {
     if (!page) return null;
 
     if (page.type === 'blank') {
       return (
-        <div className={`magic-book__page magic-book__page--${side} magic-book__page--blank ${extraClass}`} aria-label="空白页">
+        <div className={`magic-book__page magic-book__page--${side} magic-book__page--blank ${faceClass}`} aria-label="空白页">
           <div className="magic-book__paper-grain" />
-          {extraClass ? <div className="magic-book__turn-shade" /> : null}
         </div>
       );
     }
 
     return (
-      <div className={`magic-book__page magic-book__page--${side} magic-book__page--${page.type || 'inside'} ${extraClass}`}>
+      <div className={`magic-book__page magic-book__page--${side} magic-book__page--${page.type || 'inside'} ${faceClass}`}>
         <img
           className="magic-book__page-image"
           src={page.src}
@@ -626,7 +596,17 @@ function VisualMagicBook() {
           loading={page.pageNumber === 1 ? 'eager' : 'lazy'}
           decoding="async"
         />
-        {extraClass ? <div className="magic-book__turn-shade" /> : null}
+      </div>
+    );
+  };
+
+  const renderPage = (page, side, extraClass = '') => {
+    if (!extraClass) return renderPageFace(page, side);
+
+    return (
+      <div className={extraClass}>
+        {renderPageFace(page, side)}
+        <div className="magic-book__turn-shade" />
       </div>
     );
   };
@@ -644,14 +624,14 @@ function VisualMagicBook() {
           </p>
         </div>
 
-        <div className={`magic-book ${isSinglePage ? 'is-single-page' : ''} ${turn ? `is-turning-${turn.direction}` : ''}`}>
+        <div className={`magic-book ${visualIsSinglePage ? 'is-single-page' : ''} ${turn ? `is-turning-${turn.direction}` : ''}`}>
           <div className="magic-book__shadow" aria-hidden="true" />
           <div className="magic-book__spine" aria-hidden="true" />
-          <div className={`magic-book__spread${isSinglePage ? ' is-single' : ''}`}>
-            {isSinglePage ? renderPage(singlePage, 'single') : (
+          <div className={`magic-book__spread${visualIsSinglePage ? ' is-single' : ''}`}>
+            {visualIsSinglePage ? renderPage(visualSinglePage, 'single') : (
               <>
-                {renderPage(leftPage, 'left')}
-                {renderPage(rightPage, 'right')}
+                {renderPage(visualLeftPage, 'left')}
+                {renderPage(visualRightPage, 'right')}
               </>
             )}
             <button
@@ -669,12 +649,28 @@ function VisualMagicBook() {
               aria-label="下一页"
             />
           </div>
-          {turn ? (
+          {turn?.holdPage ? (
             <div
-              className={`magic-book__turn-layer magic-book__turn-layer--${turn.direction}${turn.targetIsSingle ? ' is-target-single' : ''}`}
+              key={`hold-${turn.id}`}
+              className={`magic-book__hold-layer magic-book__hold-layer--${turn.direction}`}
+              style={{ '--magic-turn-duration': `${turn.duration}ms` }}
               aria-hidden="true"
             >
-              {renderPage(turn.page, turn.direction === 'next' ? 'right' : 'left', 'magic-book__turn-page')}
+              {renderPage(turn.holdPage, turn.direction === 'next' ? 'left' : 'right', 'magic-book__hold-page')}
+            </div>
+          ) : null}
+          {turn ? (
+            <div
+              key={`turn-${turn.id}`}
+              className={`magic-book__turn-layer magic-book__turn-layer--${turn.direction}${turn.sourceIsSingle ? ' is-source-single' : ''}`}
+              style={{ '--magic-turn-duration': `${turn.duration}ms` }}
+              aria-hidden="true"
+            >
+              {renderPage(
+                turn.page,
+                turn.sourceIsSingle ? 'single' : turn.direction === 'next' ? 'right' : 'left',
+                'magic-book__turn-page',
+              )}
             </div>
           ) : null}
         </div>
@@ -721,7 +717,6 @@ export default function App() {
   const [activeHeroVideo, setActiveHeroVideo] = useState(0);
   const [activePortfolio, setActivePortfolio] = useState(portfolioCategories[0].id);
   const [activeEcommerceCase, setActiveEcommerceCase] = useState(ecommerceCases[0].id);
-  const [activeBrandCase, setActiveBrandCase] = useState(brandCases[0].id);
   const [displayedEcommerceItem, setDisplayedEcommerceItem] = useState(ecommerceCases[0]);
   const [pendingEcommerceItem, setPendingEcommerceItem] = useState(null);
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
@@ -730,7 +725,6 @@ export default function App() {
     return window.location.hash || '#home';
   });
   const ecommerceVideoRef = useRef(null);
-  const brandVideoRef = useRef(null);
   const featureVideoRef = useRef(null);
   const copyEmailTimerRef = useRef(0);
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -766,11 +760,6 @@ export default function App() {
     () => ecommerceCases.find((item) => item.id === activeEcommerceCase) || ecommerceCases[0],
     [activeEcommerceCase],
   );
-  const activeBrandItem = useMemo(
-    () => brandCases.find((item) => item.id === activeBrandCase) || brandCases[0],
-    [activeBrandCase],
-  );
-
   const scrollToPortfolioFeature = () => {
     const target =
       document.querySelector('#projects .portfolio-feature') ||
@@ -840,13 +829,10 @@ export default function App() {
     if (activePortfolioItem.id === 'ecommerce') {
       tryPlay(ecommerceVideoRef.current);
     }
-    if (activePortfolioItem.id === 'brand') {
-      tryPlay(brandVideoRef.current);
-    }
     if (activePortfolioItem.id === 'ads' || activePortfolioItem.id === 'comic') {
       tryPlay(featureVideoRef.current);
     }
-  }, [activePortfolioItem.id, activeEcommerceItem.cover, activeBrandItem.cover]);
+  }, [activePortfolioItem.id, activeEcommerceItem.cover]);
 
   useEffect(() => {
     if (activePortfolioItem.id !== 'ecommerce') {
@@ -899,9 +885,7 @@ export default function App() {
           poster={
             item.id === 'ecommerce'
               ? item.frames?.[0]?.[1] || '/hero-background.svg'
-              : item.id === 'brand'
-                ? '/portfolio/brand/cuco-cookies/pages/cuco-01.png'
-                : '/hero-background.svg'
+              : '/hero-background.svg'
           }
           controls={!pending}
           autoPlay={!pending}
@@ -1340,7 +1324,7 @@ export default function App() {
                 <h2>先按内容分类，再把作品一件件填进去。</h2>
               </div>
               <p className="section-note">
-                先按 AI 电商视觉、AI 广告设计 / 小视频、AI 品牌视觉设计、AI 漫剧分开。
+                先按 AI 电商视觉、AI 广告设计 / 小视频、AI 漫剧分开。
                 你后面发作品，我会直接替换进对应分类，并继续细分子案例。
               </p>
             </div>
@@ -1375,26 +1359,6 @@ export default function App() {
                       </div>
                     )}
                   </div>
-                ) : activePortfolioItem.id === 'brand' ? (
-                  activeBrandItem.type === 'video' ? (
-                    <video
-                      ref={brandVideoRef}
-                      className="portfolio-feature__video"
-                      src={activeBrandItem.cover}
-                      poster="/portfolio/brand/cuco-cookies/pages/cuco-01.png"
-                      controls
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      onLoadedData={(event) => {
-                        event.currentTarget.play().catch(() => {});
-                      }}
-                    />
-                  ) : (
-                    <img src={activeBrandItem.cover} alt={activeBrandItem.title} loading="lazy" />
-                  )
                 ) : activePortfolioItem.cover ? (
                   activePortfolioItem.type === 'video' ? (
                     <video
@@ -1433,26 +1397,20 @@ export default function App() {
                 <h3>
                   {activePortfolioItem.id === 'ecommerce'
                     ? activeEcommerceItem.title
-                    : activePortfolioItem.id === 'brand'
-                      ? activeBrandItem.title
-                      : activePortfolioItem.id === 'comic'
-                        ? activePortfolioItem.videos?.[0]?.[0] || activePortfolioItem.title
+                    : activePortfolioItem.id === 'comic'
+                      ? activePortfolioItem.videos?.[0]?.[0] || activePortfolioItem.title
                       : activePortfolioItem.title}
                 </h3>
                 <p>
                   {activePortfolioItem.id === 'ecommerce'
                     ? activeEcommerceItem.summary
-                    : activePortfolioItem.id === 'brand'
-                      ? activeBrandItem.summary
-                      : activePortfolioItem.summary}
+                    : activePortfolioItem.summary}
                 </p>
                 <div className="portfolio-chip-list">
                   {(
                     activePortfolioItem.id === 'ecommerce'
                       ? activeEcommerceItem.chips
-                      : activePortfolioItem.id === 'brand'
-                        ? activeBrandItem.chips
-                        : activePortfolioItem.chips
+                      : activePortfolioItem.chips
                   ).map((chip) => (
                     <span key={chip}>{chip}</span>
                   ))}
@@ -1473,31 +1431,13 @@ export default function App() {
                     ))}
                   </div>
                 )}
-                {activePortfolioItem.id === 'brand' && (
-                  <div className="portfolio-case-switch">
-                    {brandCases.map((item) => (
-                      <BorderGlowButton
-                        key={item.id}
-                        type="button"
-                        className={`portfolio-case-switch__button ${activeBrandCase === item.id ? 'is-active' : ''}`}
-                        onClick={() => setActiveBrandCase(item.id)}
-                        aria-pressed={activeBrandCase === item.id}
-                      >
-                        <span>{item.badge}</span>
-                        <strong>{item.title}</strong>
-                      </BorderGlowButton>
-                    ))}
-                  </div>
-                )}
                 <div className="portfolio-feature__meta">
                   <div>
                     <span>当前分类</span>
                     <strong>
                       {activePortfolioItem.id === 'ecommerce'
                         ? `${activePortfolioItem.title} / ${activeEcommerceItem.title}`
-                        : activePortfolioItem.id === 'brand'
-                          ? `${activePortfolioItem.title} / ${activeBrandItem.title}`
-                          : activePortfolioItem.title}
+                        : activePortfolioItem.title}
                     </strong>
                   </div>
                   <div>
@@ -1505,9 +1445,7 @@ export default function App() {
                     <strong>
                       {activePortfolioItem.id === 'ecommerce'
                         ? '鼠标视频 + 食品案例已接入'
-                        : activePortfolioItem.id === 'brand'
-                          ? '三个品牌项目已接入'
-                          : activePortfolioItem.id === 'comic'
+                        : activePortfolioItem.id === 'comic'
                             ? '三个AI漫剧视频已接入'
                             : activePortfolioItem.id === 'ads'
                               ? '广告视频已接入'
@@ -1541,35 +1479,6 @@ export default function App() {
                       <figcaption>{label}</figcaption>
                     </figure>
                   ))}
-                </div>
-              </div>
-            )}
-
-            {activePortfolioItem.id === 'brand' && (
-              <div className="portfolio-media-stack">
-                <div className="portfolio-gallery">
-                  <div className="portfolio-gallery__head">
-                    <div>
-                      <p className="eyebrow">AI品牌视觉案例流</p>
-                      <h3>{activeBrandItem.title}作品序列</h3>
-                    </div>
-                    <p>独立按钮用于切换不同品牌项目，项目内部用文字区分 LOGO、插画、包装、延展和 IP 等内容。</p>
-                  </div>
-                <div className="portfolio-gallery__grid">
-                  {activeBrandItem.frames.map(([label, src]) => (
-                    <figure
-                      key={src}
-                      className={`portfolio-gallery__item is-contain ${src.toLowerCase().endsWith('.mp4') ? 'is-video' : ''}`}
-                    >
-                      {src.toLowerCase().endsWith('.mp4') ? (
-                        <video src={src} controls playsInline preload="metadata" />
-                      ) : (
-                        <img src={src} alt={label} loading="lazy" />
-                      )}
-                      <figcaption>{label}</figcaption>
-                    </figure>
-                  ))}
-                </div>
                 </div>
               </div>
             )}
@@ -1633,9 +1542,7 @@ export default function App() {
                       poster={
                         item.id === 'ecommerce'
                           ? ecommerceCases[0].frames[0][1]
-                          : item.id === 'brand'
-                            ? '/portfolio/brand/cuco-cookies/pages/cuco-01.png'
-                            : '/hero-background.svg'
+                          : '/hero-background.svg'
                       }
                     />
                   ) : (
