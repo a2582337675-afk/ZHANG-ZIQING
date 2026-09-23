@@ -188,13 +188,33 @@ const portfolioCategories = [
     videos: adsMedia.videos,
     chips: ['动态广告', '小视频', '信息流素材', '投放视觉'],
   },
+  {
+    id: 'game-ui',
+    title: '游戏UI/场景概念',
+    tagline: '游戏界面 / 场景概念 / 视觉设定',
+    summary:
+      '游戏 UI 与场景概念设计作品集，包含 33 页界面视觉、概念氛围和游戏化叙事表达。',
+    cover: '/portfolio/game-ui/game-ui-cover.jpg',
+    pdf: '/portfolio/game-ui/game-ui.pdf',
+    type: 'pdf',
+    chips: ['游戏UI', '场景概念', '视觉设定', '叙事氛围'],
+  },
 ];
 
 const portfolioCardPosters = {
   comic: '/portfolio/comic/分开-poster.jpg',
   ecommerce: ecommerceCases[0].frames[0][1],
   ads: '/portfolio/ads/01-参考模式-poster.jpg',
+  'game-ui': '/portfolio/game-ui/game-ui-cover.jpg',
 };
+
+const gameUiPages = Array.from({ length: 33 }, (_, index) => {
+  const pageNumber = index + 1;
+  return {
+    pageNumber,
+    src: `/portfolio/game-ui/pages/page-${String(pageNumber).padStart(2, '0')}.jpg`,
+  };
+});
 
 function MotionBackdrop() {
   const canvasRef = useRef(null);
@@ -899,7 +919,6 @@ export default function App() {
           loop={!pending}
           playsInline
           preload={pending ? 'auto' : 'metadata'}
-          defaultMuted
           disablePictureInPicture
           onCanPlay={(event) => {
             if (pending) {
@@ -1330,7 +1349,7 @@ export default function App() {
                 <h2>先按内容分类，再把作品一件件填进去。</h2>
               </div>
               <p className="section-note">
-                先按 AI 电商视觉、AI 广告设计 / 小视频、AI 漫剧分开。
+                先按 AI 电商视觉、AI 广告设计 / 小视频、AI 漫剧、游戏UI/场景概念分开。
                 你后面发作品，我会直接替换进对应分类，并继续细分子案例。
               </p>
             </div>
@@ -1352,7 +1371,7 @@ export default function App() {
             </div>
 
             <div className="portfolio-feature">
-              <div className="portfolio-feature__image">
+              <div className={`portfolio-feature__image ${activePortfolioItem.type === 'pdf' ? 'is-game-ui' : ''}`}>
                 {activePortfolioItem.id === 'ecommerce' ? (
                   <div className="portfolio-feature__swap">
                     {renderMediaPreview(displayedEcommerceItem)}
@@ -1365,6 +1384,8 @@ export default function App() {
                       </div>
                     )}
                   </div>
+                ) : activePortfolioItem.type === 'pdf' ? (
+                  <img src={activePortfolioItem.cover} alt={`${activePortfolioItem.title} 封面`} loading="lazy" />
                 ) : activePortfolioItem.cover ? (
                   activePortfolioItem.type === 'video' ? (
                     <video
@@ -1421,6 +1442,17 @@ export default function App() {
                     <span key={chip}>{chip}</span>
                   ))}
                 </div>
+                {activePortfolioItem.id === 'game-ui' && (
+                  <a
+                    className="game-ui-pdf-link"
+                    href={activePortfolioItem.pdf}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <ArrowUpRight size={16} />
+                    打开完整 PDF
+                  </a>
+                )}
                 {activePortfolioItem.id === 'ecommerce' && (
                   <div className="portfolio-case-switch">
                     {ecommerceCases.map((item) => (
@@ -1526,6 +1558,38 @@ export default function App() {
                       </figure>
                     ))}
                   </div>
+                </div>
+              </div>
+            )}
+
+            {activePortfolioItem.id === 'game-ui' && (
+              <div className="portfolio-gallery game-ui-gallery">
+                <div className="portfolio-gallery__head">
+                  <div>
+                    <p className="eyebrow">游戏 UI / 场景概念</p>
+                    <h3>完整作品集 · 33 页</h3>
+                  </div>
+                  <p>选择任意页面，可在新标签中查看高清原始 PDF。</p>
+                </div>
+                <div className="portfolio-gallery__grid">
+                  {gameUiPages.map(({ pageNumber, src }) => (
+                    <a
+                      className="portfolio-gallery__item game-ui-gallery__page"
+                      key={src}
+                      href={`${activePortfolioItem.pdf}#page=${pageNumber}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`打开 PDF 查看第 ${pageNumber} 页`}
+                    >
+                      <img
+                        src={src}
+                        alt={`游戏 UI 作品集第 ${pageNumber} 页`}
+                        loading={pageNumber <= 3 ? 'eager' : 'lazy'}
+                        decoding="async"
+                      />
+                      <span>第 {pageNumber} 页</span>
+                    </a>
+                  ))}
                 </div>
               </div>
             )}
