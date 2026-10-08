@@ -98,8 +98,8 @@ const comicMedia = {
   videos: [
     ['分开', '/portfolio/comic/分开.mp4'],
     ['古风权谋', '/portfolio/comic/古风权谋合并.mp4'],
-    ['迷途星环', '/portfolio/comic/迷途星环.mp4'],
     ['七煞门', '/portfolio/comic/七煞门.mp4'],
+    ['迷途星环', '/portfolio/comic/迷途星环.mp4'],
   ],
 };
 
