@@ -99,6 +99,7 @@ const comicMedia = {
     ['分开', '/portfolio/comic/分开.mp4'],
     ['古风权谋', '/portfolio/comic/古风权谋合并.mp4'],
     ['七煞门', '/portfolio/comic/七煞门.mp4'],
+    ['迷途星环', '/portfolio/comic/迷途星环.mp4'],
   ],
 };
 
@@ -160,7 +161,7 @@ const portfolioCategories = [
     title: 'AI漫剧',
     tagline: '角色设定 / 分镜 / 场景 / 宣发图',
     summary:
-      '适合漫画化叙事和漫剧视觉。当前已接入三个漫剧视频，第一个作为首页主播放。',
+      '适合漫画化叙事和漫剧视觉。当前已接入四个漫剧视频，第一个作为首页主播放。',
     cover: comicMedia.videos[0][1],
     type: 'video',
     videos: comicMedia.videos,
@@ -1484,7 +1485,7 @@ export default function App() {
                       {activePortfolioItem.id === 'ecommerce'
                         ? '鼠标视频 + 食品案例已接入'
                         : activePortfolioItem.id === 'comic'
-                            ? '三个AI漫剧视频已接入'
+                            ? '四个AI漫剧视频已接入'
                             : activePortfolioItem.id === 'ads'
                               ? '广告视频已接入'
                               : '作品内容已接入'}
